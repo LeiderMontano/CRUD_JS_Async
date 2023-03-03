@@ -1,18 +1,44 @@
-const http = new XMLHttpRequest();
-//abrir http (metodo, URL)
-//CRUD - Métodos HTTP
-// Create - POST
-// Read - GET
-// Update - PUT/PATCH
-// Delete - DELETE
+const listaClientes = () =>
+  fetch("http://localhost:3000/perfil").then((respuesta) => respuesta.json());
 
-http.open("GET", "http://localhost:3000/perfil");
+const crearCliente = (nombre, email) => {
+  return fetch("http://localhost:3000/perfil", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ nombre, email, id: uuid.v4() }),
+  });
+};
 
-http.send();
+const eliminarCliente = (id) => {
+  return fetch(`http://localhost:3000/perfil/${id}`, {
+    method: "DELETE",
+  });
+};
 
-http.onload = () => {
-    const data = http.response
+const detalleCliente = (id) => {
+  return fetch(`http://localhost:3000/perfil/${id}`).then((respuesta) =>
+    respuesta.json()
+  );
+};
 
-}
+const actualizarCliente = (nombre, email, id) => {
+  return fetch(`http://localhost:3000/perfil/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ nombre, email }),
+  })
+    .then((respuesta) => respuesta)
+    .catch((err) => console.log(err));
+};
 
-console.log (http);
+export const clientServices = {
+  listaClientes,
+  crearCliente,
+  eliminarCliente,
+  detalleCliente,
+  actualizarCliente,
+};
