@@ -1,24 +1,18 @@
-const listaClientes = () =>
-  fetch("http://localhost:3000/perfil").then((respuesta) => respuesta.json());
+const http = new XMLHttpRequest();
+//abrir http (metodo, URL)
+//CRUD - Métodos HTTP
+// Create - POST
+// Read - GET
+// Update - PUT/PATCH
+// Delete - DELETE
 
-const crearCliente = (nombre, email) => {
-  return fetch("http://localhost:3000/perfil", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ nombre, email, id: uuid.v4() }),
-  });
-};
+http.open("GET", "http://localhost:3000/perfil");
 
-const eliminarCliente = (id) => {
-  return fetch(`http://localhost:3000/perfil/${id}`, {
-    method: "DELETE",
-  });
-};
+http.send();
 
-export const clientServices = {
-  listaClientes,
-  crearCliente,
-  eliminarCliente,
-};
+http.onload = () => {
+    const data = http.response
+
+}
+
+console.log (http);
